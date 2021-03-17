@@ -16,13 +16,14 @@ type
 
 procedure Test(const ADescription: String; var ATestArray: Array of byte; AGetBitCountRef: TGetBitCountRef );
 Var
+  AResult: Byte;
   I: Integer;
   ATimeInterval, InitialF, FinalF: Int64;
 begin
   QueryPerformanceCounter(InitialF);
   for I := Low(ATestArray) to High(ATestArray) do
   begin
-    AGetBitCountRef(ATestArray[i]);
+    AResult := AGetBitCountRef(ATestArray[i]);
   end;
   QueryPerformanceCounter(FinalF);
   ATimeInterval := FinalF - InitialF;
@@ -45,7 +46,7 @@ end;
 
 var
   lpFrequency:Int64;
-  TestArray: Array[0..1000000] of byte;
+  TestArray: Array[0..100000000] of byte;
 begin
   if not QueryPerformanceFrequency(lpFrequency) then
   begin
